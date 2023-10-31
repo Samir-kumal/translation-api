@@ -78,84 +78,57 @@ const fetchData = async () => {
 //   }
 // };
 
-// const translate = async () => {
-//     try {
-//       const translations = placesData.map((place) => {
-//         const translationInput = [
-//           place.title,
-//           place.description,
-//           place.location,
-    
-//         ].join(" ");
-//         return translationInput;
-//       });
-  
-//       const options = {
-//         method: "POST",
-//         url: "https://rapid-translate-multi-traduction.p.rapidapi.com/t",
-//         headers: {
-//           "content-type": "application/json",
-//           "X-RapidAPI-Key": "bc09f3388emsh9ec4ea7dee97cedp1fd462jsn3e7fe9c75a63",
-//           "X-RapidAPI-Host": "rapid-translate-multi-traduction.p.rapidapi.com",
-//         },
-//         data: {
-//           from: "en",
-//           to: "ne",
-//           q: translations,
-//         },
-//       };
-  
-//       const response = await axios.request(options);
-  
-//       // Map the translated values back to the original structure
-//     //   const translatedPlacesData = placesData.map((place, index) => {
-//     //     return {
-//     //       ...place, // Copy the original attributes
-//     //       title: response.data.translations[index].title,
-//     //       description: response.data.translations[index].description,
-//     //       location: place.location,
-//     //       wardno: place.wardno,
-//     //     };
-//     //   });
-
-//     response.data.map((item)=>{
-//         console.log(item, "count",count);
-//         count ++
-
-//     })
-  
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-  
 const translate = async () => {
-
-    
-
-    const options = {
-      method: 'POST',
-      url: 'https://ai-translation-apis.p.rapidapi.com/json',
-      headers: {
-        'content-type': 'application/json',
-        'X-RapidAPI-Key': 'bc09f3388emsh9ec4ea7dee97cedp1fd462jsn3e7fe9c75a63',
-        'X-RapidAPI-Host': 'ai-translation-apis.p.rapidapi.com'
-      },
-      data: {
-        to: 'ne',
-        source: {
-          message: 'welcome to rapid api'
-        }
-      }
-    };
-    
     try {
-        const response = await axios.request(options);
-        console.log(response.data);
+      const translations = placesData.map((place) => {
+        const translationInput = [
+          place.title,
+          place.description,
+          place.location,
+    
+        ].join(" ");
+        return translationInput;
+      });
+  
+      const options = {
+        method: "POST",
+        url: "https://rapid-translate-multi-traduction.p.rapidapi.com/t",
+        headers: {
+          "content-type": "application/json",
+          "X-RapidAPI-Key": "bc09f3388emsh9ec4ea7dee97cedp1fd462jsn3e7fe9c75a63",
+          "X-RapidAPI-Host": "rapid-translate-multi-traduction.p.rapidapi.com",
+        },
+        data: {
+          from: "en",
+          to: "ne",
+          q: translations,
+        },
+      };
+  
+      const response = await axios.request(options);
+  
+      const translatedPlacesData = placesData.map((place, index) => {
+        return {
+          ...place, // Copy the original attributes
+          title: response.data.translations[index].title,
+          description: response.data.translations[index].description,
+          location: place.location,
+          wardno: place.wardno,
+        };
+      });
+
+    response.data.map((item)=>{
+        console.log(item, "count",count);
+        count ++
+
+    })
+  
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
-}
+  };
+  
+
 
 fetchData();
 

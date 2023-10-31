@@ -1,13 +1,13 @@
 {
   "name": "translation-api",
   "version": "1.0.0",
-  "description": "this translates the one language to another",
+  "description": "this translates the one language to another language",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start":"nodemon index.js"
   },
-  "author": "samir",
+  "author": "samir kumal",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.6.0",
